@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>いしかわ、日々のかけら</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --serif: 'Noto Serif JP', serif;
+    --sans: 'Noto Sans JP', sans-serif;
+    --ink: #1a1a18;
+    --ink-mid: #555550;
+    --ink-light: #888880;
+    --ink-faint: #c8c8c0;
+    --paper: #faf9f6;
+    --paper-warm: #f3f1ec;
+    --paper-card: #ffffff;
+    --accent: #5a7a4a;
+    --accent-light: #edf2e8;
+    --accent-mid: #7a9a6a;
+    --max: 860px;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.8;
+    font-size: 15px;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Header ── */
+  .site-header {
+    border-bottom: 1px solid var(--ink-faint);
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+  .site-header-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .site-logo {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+  }
+  .site-desc {
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+  }
+  .site-nav {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.25rem;
+  }
+  .site-nav a {
+    font-size: 13px;
+    color: var(--ink-mid);
+    letter-spacing: 0.04em;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .site-nav a:hover, .site-nav a.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* ── Layout ── */
+  .page {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 640px) {
+    .page { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* ── Article list ── */
+  .article-list { display: flex; flex-direction: column; }
+
+  .article-item {
+    display: flex;
+    gap: 18px;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--ink-faint);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .article-item:first-child { border-top: 1px solid var(--ink-faint); }
+  .article-item:hover { opacity: 0.75; }
+
+  .article-thumb {
+    width: 96px;
+    height: 72px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--paper-warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+
+  .article-body { flex: 1; min-width: 0; }
+  .article-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border: 1px solid var(--accent-mid);
+    border-radius: 100px;
+    padding: 1px 9px;
+    margin-bottom: 5px;
+  }
+  .article-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .article-excerpt {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.75;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .article-meta {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    display: flex;
+    gap: 12px;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .sidebar-box {
+    background: var(--paper-warm);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .sidebar-box h3 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-light);
+    margin-bottom: 0.9rem;
+    text-transform: none;
+    font-family: var(--sans);
+    font-weight: 500;
+  }
+
+  .profile-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  .profile-name {
+    font-family: var(--serif);
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .profile-bio {
+    font-size: 12px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+  }
+
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag-pill {
+    font-size: 12px;
+    color: var(--ink-mid);
+    background: var(--paper-card);
+    border: 1px solid var(--ink-faint);
+    border-radius: 100px;
+    padding: 3px 12px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .tag-pill:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-mid);
+    color: var(--accent);
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--ink-faint);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="site-logo">いしかわ、日々のかけら</a>
+    <p class="site-desc">石川県の暮らし・食・文化・自然をゆるやかに記録するブログ</p>
+    <nav class="site-nav">
+      <a href="index.html" class="active">記事一覧</a>
+      <a href="#">カテゴリ</a>
+      <a href="#">プロフィール</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <div class="article-list">
+
+      <a href="post1.html" class="article-item">
+        <div class="article-thumb">🌾</div>
+        <div class="article-body">
+          <span class="article-tag">自然・風景</span>
+          <p class="article-title">能登の千枚田、棚田に夕陽が落ちる瞬間のこと</p>
+          <p class="article-excerpt">輪島市白米町にある千枚田。日本海を背に、小さな田んぼが山の斜面を覆う光景。実際に立ってみると、写真では伝わらないものがありました。</p>
+          <div class="article-meta"><span>2025年4月3日</span><span>読了 4分</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-item">
+        <div class="article-thumb">🌊</div>
+        <div class="article-body">
+          <span class="article-tag">おでかけ</span>
+          <p class="article-title">千里浜なぎさドライブウェイ、夕暮れ時がいちばんいい理由</p>
+          <p class="article-excerpt">砂浜を車で走れる場所は日本でここだけ。波打ち際ギリギリのドライブ、何度行っても飽きない。特に夕暮れの光が水面に映るあの瞬間が好きです。</p>
+          <div class="article-meta"><span>2025年3月28日</span><span>読了 3分</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-item">
+        <div class="article-thumb">🏮</div>
+        <div class="article-body">
+          <span class="article-tag">文化・歴史</span>
+          <p class="article-title">金沢の主計町、昼と夜でまったく別の顔を持つ路地裏へ</p>
+          <p class="article-excerpt">浅野川のほとりに残る茶屋街のひとつ、主計町。昼間はひっそりとしているのに、夜になると三味線の音が聞こえてくる。この街の二面性に、何度も足を運びたくなる。</p>
+          <div class="article-meta"><span>2025年3月15日</span><span>読了 5分</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="article-item">
+        <div class="article-thumb">🍵</div>
+        <div class="article-body">
+          <span class="article-tag">暮らし</span>
+          <p class="article-title">加賀棒茶との付き合い方——毎朝の一杯がゆっくり変えたこと</p>
+          <p class="article-excerpt">石川に引っ越してから、お茶の飲み方が変わりました。ほうじ茶の中でも加賀棒茶は別格。その香ばしさの理由と、お気に入りのお店を紹介します。</p>
+          <div class="article-meta"><span>2025年3月8日</span><span>読了 3分</span></div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="sidebar-box">
+      <div class="profile-avatar">🌿</div>
+      <p class="profile-name">Horan</p>
+      <p class="profile-bio">石川にすむ、40代主婦です。石川の日常・食・文化・自然をゆるやかに記録しています。</p>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>カテゴリ</h3>
+      <div class="tag-cloud">
+        <span class="tag-pill">自然・風景</span>
+        <span class="tag-pill">おでかけ</span>
+        <span class="tag-pill">食・グルメ</span>
+        <span class="tag-pill">文化・歴史</span>
+        <span class="tag-pill">暮らし</span>
+        <span class="tag-pill">能登</span>
+        <span class="tag-pill">金沢</span>
+        <span class="tag-pill">季節</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <p>© 2025 いしかわ、日々のかけら</p>
+</footer>
+
+</body>
+</html>
